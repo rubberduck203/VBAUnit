@@ -6,3 +6,6 @@
 *.accdb
 *.accde
 *.accdr
+
+#Log files
+*.log
