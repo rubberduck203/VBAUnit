@@ -1,7 +1,7 @@
 Private test As VBAUnit.UnitTest
 
 Friend Sub SetOutputStream(out As IOutput)
-    Set test = VBAUnit.UnitTestFactory(TypeName(Me), out)
+    Set test = VBAUnit.UnitTestFactory.Create(TypeName(Me), out)
 End Sub
 
 Private Sub Class_Terminate()
