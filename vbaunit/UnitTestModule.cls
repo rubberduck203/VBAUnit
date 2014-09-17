@@ -25,6 +25,7 @@ On Error GoTo ErrHandler
     
 ExitSub:
     Set ThisProject = Nothing
+    Exit Sub
 
 ErrHandler:
     '@todo - log and report error
@@ -41,7 +42,7 @@ Private Function GetAvailableName(Name As String, Optional callCount As Long) As
 
     Dim I As Long
     For I = 1 To ThisProject.VBComponents.Count
-        If ThisProject.VBComponents.item(I).Name = Name Then
+        If ThisProject.VBComponents.Item(I).Name = Name Then
             Name = GetAvailableName(Name & callCount + 1)
             Exit For
         End If
