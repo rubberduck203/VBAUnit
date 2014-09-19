@@ -16,8 +16,6 @@ Public Sub RunAllTests()
     
     TestNotEquals
     out.PrintLine
-
-    out.Dispose
     
 End Sub
 

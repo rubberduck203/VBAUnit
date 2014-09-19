@@ -11,13 +11,22 @@ Option Explicit
 
 Private ThisProject As VBProject
 
-Public Sub Add(Project As VBProject)
+Public Sub AddNewTestMethod(methodName As String)
+    Dim module As CodeModule
+    Set module = Application.VBE.ActiveCodePane.CodeModule
+    
+    Dim template As String
+    template = "Public Sub " & methodName & "()" & vbNewLine & vbNewLine & "End Sub"
+    module.InsertLines module.CountOfLines + 2, template
+End Sub
+
+Public Sub Add(project As VBProject)
 On Error GoTo ErrHandler
 
-    Set ThisProject = Project
+    Set ThisProject = project
     
     Dim comp As VBComponent
-    Set comp = Project.VBComponents.Add(vbext_ct_ClassModule)
+    Set comp = project.VBComponents.Add(vbext_ct_ClassModule)
     
     comp.Name = GetAvailableName("NewUnitTest")
     
