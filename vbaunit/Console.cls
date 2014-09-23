@@ -10,7 +10,29 @@ Attribute VB_Exposed = True
 Option Explicit
 
 Implements IOutput
+Implements ITestOutput
 
+Private Sub ITestOutput_ReportResult(result As TestResult)
+    Dim output As String
+    output = result.TestName & "." & result.MethodName & ": "
+    
+    Select Case result.TestOutcome
+        Case Failed
+            output = output & "Fail"
+        Case Succeeded
+            output = output & "Pass"
+        Case Else
+            output = output & "Undetermined"
+    End Select
+    
+    If result.Message <> vbNullString Then
+        output = output & ": " & result.Message
+    End If
+    
+    PrintLine output
+    
+    Set result = Nothing
+End Sub
 Public Sub PrintLine(Optional ByVal output As Variant)
     VBEX.Console.PrintLine output
 End Sub

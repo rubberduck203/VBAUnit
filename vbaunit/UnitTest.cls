@@ -46,8 +46,11 @@ Public Sub Dispose()
  '   this.OutStream.Dispose
 End Sub
 
-Private Sub Assert_Completed(ByVal Result As TestResult)
-    ReportResult Result
+Private Sub Assert_Completed(ByVal result As TestResult)
+    Dim out As ITestOutput
+    Set out = this.OutStream 'cast to ITestOutput
+    
+    out.ReportResult result
 End Sub
 
 Private Sub IDisposable_Dispose()
@@ -56,26 +59,4 @@ End Sub
 
 Private Sub Class_Terminate()
     Dispose
-End Sub
-
-Private Sub ReportResult(Result As TestResult)
-    Dim output As String
-    output = this.Name & "." & Assert.Name & ": "
-    
-    Select Case Result.TestOutcome
-        Case Failed
-            output = output & "Fail"
-        Case Succeeded
-            output = output & "Pass"
-        Case Else
-            output = output & "Undetermined"
-    End Select
-    
-    If Result.Message <> vbNullString Then
-        output = output & ": " & Result.Message
-    End If
-    
-    this.OutStream.PrintLine output
-    
-    Set Result = Nothing
 End Sub

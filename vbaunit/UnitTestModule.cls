@@ -11,12 +11,12 @@ Option Explicit
 
 Private ThisProject As VBProject
 
-Public Sub AddNewTestMethod(methodName As String)
+Public Sub AddNewTestMethod(MethodName As String)
     Dim module As CodeModule
     Set module = Application.VBE.ActiveCodePane.CodeModule
     
     Dim template As String
-    template = "Public Sub " & methodName & "()" & vbNewLine & vbNewLine & "End Sub"
+    template = "Public Sub " & MethodName & "()" & vbNewLine & vbNewLine & "End Sub"
     module.InsertLines module.CountOfLines + 2, template
 End Sub
 

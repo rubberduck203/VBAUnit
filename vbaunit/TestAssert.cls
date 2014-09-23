@@ -16,7 +16,7 @@ End Type
 
 Private this As TAssert
 
-Public Event Completed(ByVal Result As TestResult)
+Public Event Completed(ByVal result As TestResult)
 
 Public Property Get Name() As String
     Name = this.Name
@@ -39,7 +39,7 @@ Public Sub IsTrue(condition As Boolean, Optional Message As String)
     Dim outcome As TestOutcome
     outcome = IIf(condition, Succeeded, Failed)
     
-    RaiseEvent Completed(TestResult.Create(outcome, Message))
+    RaiseEvent Completed(TestResult.Create(outcome, Message, this.Parent.Name, this.Name))
     
 End Sub
 
@@ -48,7 +48,7 @@ Public Sub IsFalse(condition As Boolean, Optional Message As String)
     Dim outcome As TestOutcome
     outcome = IIf(condition, Failed, Succeeded)
     
-    RaiseEvent Completed(TestResult.Create(outcome, Message))
+    RaiseEvent Completed(TestResult.Create(outcome, Message, this.Parent.Name, this.Name))
     
 End Sub
 
@@ -63,11 +63,11 @@ Public Sub AreEqual(object1 As Variant, object2 As Variant, Optional ByVal Messa
         If IsObject(object2) Then
             IsTrue (object1 Is object2), Message
         Else
-            RaiseEvent Completed(TestResult.Create(Failed, Message))
+            RaiseEvent Completed(TestResult.Create(Failed, Message, this.Parent.Name, this.Name))
         End If
         
     ElseIf IsObject(object2) Then
-        RaiseEvent Completed(TestResult.Create(Failed, Message))
+        RaiseEvent Completed(TestResult.Create(Failed, Message, this.Parent.Name, this.Name))
     Else
         IsTrue (object1 = object2), Message
     End If
@@ -84,11 +84,11 @@ Public Sub NotEqual(object1 As Variant, object2 As Variant, Optional ByVal Messa
         If IsObject(object2) Then
             IsFalse (object1 Is object2), Message
         Else
-            RaiseEvent Completed(TestResult.Create(Succeeded, Message))
+            RaiseEvent Completed(TestResult.Create(Succeeded, Message, this.Parent.Name, this.Name))
         End If
         
     ElseIf IsObject(object2) Then
-        RaiseEvent Completed(TestResult.Create(Succeeded, Message))
+        RaiseEvent Completed(TestResult.Create(Succeeded, Message, this.Parent.Name, this.Name))
     Else
         IsFalse (object1 = object2), Message
     End If

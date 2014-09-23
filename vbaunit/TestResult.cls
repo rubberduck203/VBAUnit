@@ -19,6 +19,8 @@ Public Enum TestOutcome
 End Enum
 
 Private Type TTestResult
+    TestName As String
+    MethodName As String
     TestOutcome As TestOutcome
     Message As String
 End Type
@@ -41,13 +43,31 @@ Friend Property Let Message(ByVal value As String)
     this.Message = value
 End Property
 
-Public Function Create(ByVal outcome As TestOutcome, ByVal Message As String) As TestResult
+Public Property Get TestName() As String
+    TestName = this.TestName
+End Property
 
-    Dim Result As New TestResult
-    Result.TestOutcome = outcome
-    Result.Message = Message
+Friend Property Let TestName(ByVal value As String)
+    this.TestName = value
+End Property
 
-    Set Create = Result
+Public Property Get MethodName() As String
+    MethodName = this.MethodName
+End Property
+
+Friend Property Let MethodName(ByVal value As String)
+    this.MethodName = value
+End Property
+
+Public Function Create(ByVal outcome As TestOutcome, ByVal Message As String, ByVal TestName As String, ByVal MethodName As String) As TestResult
+
+    Dim result As New TestResult
+    result.TestOutcome = outcome
+    result.Message = Message
+    result.TestName = TestName
+    result.MethodName = MethodName
+
+    Set Create = result
 
 End Function
 
